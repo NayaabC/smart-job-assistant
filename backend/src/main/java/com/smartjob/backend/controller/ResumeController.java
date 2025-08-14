@@ -17,7 +17,7 @@ public class ResumeController {
 
     @PostMapping
     public Resume createResume(@RequestBody Resume resume) {
-        return resumeRepository.save(resume);
+        return resumeRepository.save(resume);yea
     }
 
     @GetMapping

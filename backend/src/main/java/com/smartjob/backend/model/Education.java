@@ -4,8 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 
 
 @Entity
@@ -20,10 +18,8 @@ public class Education {
 	private String fieldOfStudy;
 	private String startDate;
 	private String endDate;
+	private String description;
 	
-	@ManyToOne
-	@JoinColumn(name = "resume_id")
-	private Resume resume;
 	
 	public Long getId() {
 		return id;
@@ -75,22 +71,12 @@ public class Education {
 		this.endDate = endDate;
 	}
 	
-	public Resume getResume() {
-		return resume;
+	public String getDescription() {
+		return description;
 	}
 	
-	public void setResume(Resume resume) {
-		this.resume = resume;
+	public void setDescription(String desc) {
+		this.description = desc;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

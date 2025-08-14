@@ -16,13 +16,10 @@ public class Experience {
     private String endDate;
 
     @ElementCollection
-    @CollectionTable(name = "experience_bullet_points", joinColumns = @JoinColumn(name = "experience_id"))
-    @Column(name = "bullet_point", length = 500)
-    private List<String> descriptionBullets;
+    @CollectionTable(name = "experience_descriptions", joinColumns = @JoinColumn(name = "experience_id"))
+    @Column(name = "description")
+    private List<String> descriptions;
 
-    @ManyToOne
-    @JoinColumn(name = "resume_id")
-    private Resume resume;
 
     // Getters and setters
     public Long getId() {
@@ -65,19 +62,11 @@ public class Experience {
         this.endDate = endDate;
     }
 
-    public List<String> getDescriptionBullets() {
-        return descriptionBullets;
+    public List<String> getDescriptions() {
+        return descriptions;
     }
 
-    public void setDescriptionBullets(List<String> descriptionBullets) {
-        this.descriptionBullets = descriptionBullets;
-    }
-
-    public Resume getResume() {
-        return resume;
-    }
-
-    public void setResume(Resume resume) {
-        this.resume = resume;
+    public void setDescriptions(List<String> descriptions) {
+        this.descriptions = descriptions;
     }
 }
