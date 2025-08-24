@@ -4,90 +4,102 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "resumes")
+@Table(name = "resume")
 public class Resume {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String fullName;
     private String email;
     private String phone;
 
-    @ElementCollection
-    @CollectionTable(name = "resume_education", joinColumns = @JoinColumn(name = "resume_id"))
-    private List<Education> education;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "resume_id")
+    private List<Education> educationList;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "resume_id")
+    private List<Experience> experienceList;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "resume_id")
+    private List<Project> projects;
 
     @ElementCollection
-    @CollectionTable(name = "resume_experience", joinColumns = @JoinColumn(name = "resume_id"))
-    private List<Experience> experience;
-
-    @ElementCollection
-    @CollectionTable(name = "resume_skills", joinColumns = @JoinColumn(name = "resume_id"))
+    @CollectionTable(name = "resume_skills", joinColumns = @JoinColumn(name = "resumE_id"))
     @Column(name = "skill")
     private List<String> skills;
 
-    @ElementCollection
-    @CollectionTable(name = "resume_projects", joinColumns = @JoinColumn(name = "resume_id"))
-    private List<Project> projects;
-    
-    
+    public Resume() {}
+
+    public Resume(String fullName, String email, String phone, List<Education> educationList, List<Experience> experienceList, List<String> skills, 
+    		List<Project> projects) {
+        this.fullName = fullName;
+        this.email = email;
+        this.phone = phone;
+        this.educationList = educationList;
+        this.experienceList = experienceList;
+        this.skills = skills;
+        this.projects = projects;
+    }
+
+    // Getters and setters
     public Long getId() {
-    	return id;
+        return id;
     }
-    
-    public void setId (Long id) {
-    	this.id = id;
+
+    public void setId(Long id) {
+        this.id = id;
     }
-    
-    
-    public String getName() {
-    	return name;
+
+    public String getFullName() {
+        return fullName;
     }
-    
-    public void setName (String name) {
-    	this.name = name;
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
-    
+
     public String getEmail() {
-    	return email;
+        return email;
     }
-    
-    public void setEmail (String email) {
-    	this.email = email;
+
+    public void setEmail(String email) {
+        this.email = email;
     }
-    
+
     public String getPhone() {
-    	return phone;
+        return phone;
     }
-    
-    public void setPhone (String phone) {
-    	this.phone = phone;
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
-    
+
+    public List<Education> getEducationList() {
+        return educationList;
+    }
+
+    public void setEducationList(List<Education> educationList) {
+        this.educationList = educationList;
+    }
+
+    public List<Experience> getExperienceList() {
+        return experienceList;
+    }
+
+    public void setExperienceList(List<Experience> experienceList) {
+        this.experienceList = experienceList;
+    }
+
     public List<String> getSkills() {
-    	return skills;
+        return skills;
     }
-    
+
     public void setSkills(List<String> skills) {
-    	this.skills = skills;
-    }
-    
-    public List<Education> getEducation() {
-    	return education;
-    }
-    
-    public void setEducation(List<Education> education) {
-    	this.education = education;
-    }
-    
-    public List<Experience> getExperience() {
-    	return experience;
-    }
-    
-    public void setExperience(List<Experience> experience) {
-    	this.experience = experience;
+        this.skills = skills;
     }
     
     public List<Project> getProjects() {
@@ -97,7 +109,4 @@ public class Resume {
     public void setProjects(List<Project> projects) {
     	this.projects = projects;
     }
-    
-    
-    
 }
