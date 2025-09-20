@@ -17,7 +17,7 @@ export default function JobList({
   onApply
 }: JobListProps) {
   return (
-    <div className="h-full p-6 overflow-y-auto">
+    <div className="h-full overflow-y-auto">
       <div className="space-y-4">
         {jobs.map((job) => (
           <JobCard

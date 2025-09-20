@@ -180,64 +180,67 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 grid grid-cols-[256px_1fr_320px] grid-rows-[auto_auto_1fr] gap-0">
-      {/* Sidebar - spans full height */}
-      <div className="row-span-3">
+    <div className="min-h-screen bg-gray-50 flex">
+      {/* Sidebar - fixed width */}
+      <div className="w-64 flex-shrink-0">
         <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
       </div>
       
-      {/* Top Navigation Tabs - spans middle and right columns */}
-      <div className="col-span-2 bg-white border-b border-gray-200">
-        <div className="px-6 py-4">
-          <div className="flex items-center space-x-8">
-            <button className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              activeTab === 'jobs' ? 'bg-blue-100 text-blue-700' : 'text-gray-600 hover:text-gray-900'
-            }`}>
-              JOBS
-            </button>
-            <button className="px-4 py-2 rounded-lg font-medium text-blue-600 hover:bg-blue-50 transition-colors">
-              Recommended
-            </button>
-            <button className="px-4 py-2 rounded-lg font-medium text-gray-600 hover:bg-gray-50 transition-colors">
-              Liked 0
-            </button>
-            <button className="px-4 py-2 rounded-lg font-medium text-gray-600 hover:bg-gray-50 transition-colors">
-              Applied 991
-            </button>
-            <button className="px-4 py-2 rounded-lg font-medium text-gray-600 hover:bg-gray-50 transition-colors">
-              External 0
-            </button>
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* Top Navigation Tabs */}
+        <div className="bg-white border-b border-gray-200">
+          <div className="px-6 py-4">
+            <div className="flex items-center space-x-8">
+              <button className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                activeTab === 'jobs' ? 'bg-blue-100 text-blue-700' : 'text-gray-600 hover:text-gray-900'
+              }`}>
+                JOBS
+              </button>
+              <button className="px-4 py-2 rounded-lg font-medium text-blue-600 hover:bg-blue-50 transition-colors">
+                Recommended
+              </button>
+              <button className="px-4 py-2 rounded-lg font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+                Liked 0
+              </button>
+              <button className="px-4 py-2 rounded-lg font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+                Applied 991
+              </button>
+              <button className="px-4 py-2 rounded-lg font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+                External 0
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Job Filters - spans middle and right columns */}
-      <div className="col-span-2">
-        <JobFiltersComponent filters={filters} onFiltersChange={handleFiltersChange} />
-      </div>
-
-      {/* Main Content Area - flexible grid for job list and resume preview */}
-      <div className="col-span-2 grid grid-cols-[1fr_320px] gap-0 min-h-0">
-        {/* Job List - takes remaining space */}
-        <div className="min-h-0">
-          <JobList
-            jobs={jobs}
-            onView={(jobId) => handleJobAction('view', jobId)}
-            onLike={(jobId) => handleJobAction('like', jobId)}
-            onAskOrion={(jobId) => handleJobAction('ask-orion', jobId)}
-            onApply={(jobId) => handleJobAction('apply', jobId)}
-          />
+        {/* Job Filters */}
+        <div>
+          <JobFiltersComponent filters={filters} onFiltersChange={handleFiltersChange} />
         </div>
 
-        {/* Resume Preview - fixed width */}
-        <div className="w-80">
-          <ResumePreview
-            resume={resume}
-            onEditResume={handleEditResume}
-            onGeneratePDF={handleGeneratePDF}
-            isPDFPreview={isPDFPreview}
-            onTogglePDFPreview={handleTogglePDFPreview}
-          />
+        {/* Main Content Area - flexible grid for job list and resume preview */}
+        <div className="flex-1 flex gap-6 px-6 py-6 min-h-0">
+          {/* Job List - takes remaining space */}
+          <div className="flex-1 min-w-0">
+            <JobList
+              jobs={jobs}
+              onView={(jobId) => handleJobAction('view', jobId)}
+              onLike={(jobId) => handleJobAction('like', jobId)}
+              onAskOrion={(jobId) => handleJobAction('ask-orion', jobId)}
+              onApply={(jobId) => handleJobAction('apply', jobId)}
+            />
+          </div>
+
+          {/* Resume Preview - fixed width */}
+          <div className="w-80 flex-shrink-0">
+            <ResumePreview
+              resume={resume}
+              onEditResume={handleEditResume}
+              onGeneratePDF={handleGeneratePDF}
+              isPDFPreview={isPDFPreview}
+              onTogglePDFPreview={handleTogglePDFPreview}
+            />
+          </div>
         </div>
       </div>
     </div>
